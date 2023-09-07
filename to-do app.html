@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+                <style type="text/css">
+                  #ok{
+                          position:absolute;top:5px; left:180px;
+                           background-color:rgb(159, 112, 125);color:rgb(217, 31, 31); font-family:verdana; 
+                           font-size:15px;padding:1px; width:130px;
+                         }
+                </style>
+  <title>to-do app application</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body>
+
+<div ng-controller="MyController">
+  <input type="text" ng-model="newItem" placeholder="Enter a new item">
+  <button ng-click="addItem()" id="ok">Add Item</button>
+
+  <div ng-repeat="item in items">
+    <input type="checkbox" ng-model="item.checked" ng-change="deleteItem(item)" />
+    {{ item.text }}
+  </div>
+</div>
+
+<script>
+var app = angular.module("myApp", []);
+
+app.controller("MyController", function($scope) {
+  $scope.items = [];
+  $scope.newItem = '';
+
+  $scope.addItem = function() {
+    if ($scope.newItem) {
+      $scope.items.push({ text: $scope.newItem, checked: false });
+      $scope.newItem = '';
+    }
+  };
+
+  $scope.deleteItem = function(item) {
+    var index = $scope.items.indexOf(item);
+    if (index !== -1) {
+      $scope.items.splice(index, 1);
+    }
+  };
+});
+</script>
+
+</body>
+</html>
